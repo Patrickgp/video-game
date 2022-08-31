@@ -1,0 +1,2 @@
+DROP DATABASE IF EXISTS ADD videogame_db;
+CREATE DATABASE videogame_db;
