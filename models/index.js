@@ -1,0 +1,1 @@
+const {ScorePost} = require('./Highscore');

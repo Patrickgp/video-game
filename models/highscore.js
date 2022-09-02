@@ -1,10 +1,9 @@
 const { Model, DataTypes } = require('sequelize');
-const bcrypt = require('bcrypt');
 const sequelize = require('../config/connection');
 
-class Post extends Model {}
+class ScorePost extends Model {}
 
-Post.init(
+ScorePost.init(
     {
         id: {
             type: DataTypes.INTEGER,
@@ -20,11 +19,19 @@ Post.init(
             type: DataTypes.INTEGER,
             allowNull: false
         },
+        user_id: {
+            type: DataTypes.INTEGER,
+            references: {
+                model: 'user',
+                key: id,
+            }
+        }
     },
     {
         sequelize,
         freezeTableName: true,
         underscored: true,
-        modelName: 'scorePost'
+        timestamps: true,
+        modelName: 'ScorePost'
     }
 );
