@@ -42,14 +42,14 @@ export class FlyingEnemy extends Enemy {
   constructor(game) {
     super();
     this.game = game;
-    this.width = 60;
-    this.height = 44;
+    this.width = 70;
+    this.height = 103;
     this.x = this.game.width + Math.random() * this.game.width * 0.5;
     this.y = Math.random() * this.game.height * 0.5;
     this.speedX = Math.random() + 0.2;
     this.speedY = 0;
     this.maxFrame = 5;
-    this.image = document.getElementById("enemy_fly");
+    this.image = document.getElementById("enemy_ghost");
     this.angle = 0;
     this.va = Math.random() * 0.1 + 0.1;
   }
@@ -64,14 +64,18 @@ export class GroundEnemy extends Enemy {
   constructor(game) {
     super();
     this.game = game;
-    this.width = 60;
-    this.height = 87;
+    this.width = 87.5;
+    this.height = 65;
     this.x = this.game.width;
-    this.y = this.game.height - this.height - this.game.groundMargin;
-    this.image = document.getElementById("enemy_plant");
+    this.y =
+      this.game.height -
+      this.height -
+      this.game.groundMargin -
+      this.game.groundMargin / 3;
+    this.image = document.getElementById("enemy_ground_zombie");
     this.speedX = 0;
     this.speedY = 0;
-    this.maxFrame = 1;
+    this.maxFrame = 7;
   }
 }
 
