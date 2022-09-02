@@ -1,11 +1,3 @@
-const router = require("express").Router();
+const Post = require("./Post");
 
-const apiRoutes = require("./api");
-
-router.use("/api", apiRoutes);
-
-router.use((req, res) => {
-  res.status(404).end();
-});
-
-module.exports = router;
+module.exports = Post;
