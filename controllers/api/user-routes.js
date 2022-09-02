@@ -43,6 +43,9 @@ router.get('/', async (req, res) => {
         username: req.body.username,
         email: req.body.email,
         password: req.body.password
+      },
+      {
+        individualHooks: true
       });
       res.status(200).send({ createUser });
     } catch (err) {
@@ -63,6 +66,7 @@ router.put('/:id', async (req, res) => {
         password: req.body.password
       },
       {
+        individualHooks: true,
         where: {
           id: req.params.id,
         },
