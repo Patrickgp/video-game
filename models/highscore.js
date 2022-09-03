@@ -11,10 +11,6 @@ ScorePost.init(
             primaryKey: true,
             autoIncrement: true
         },
-        username: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
         highscore: {
             type: DataTypes.INTEGER,
             allowNull: false
@@ -23,7 +19,7 @@ ScorePost.init(
             type: DataTypes.INTEGER,
             references: {
                 model: 'user',
-                key: id,
+                key: 'id',
             }
         }
     },
@@ -35,3 +31,5 @@ ScorePost.init(
         modelName: 'ScorePost'
     }
 );
+
+module.exports = ScorePost;
