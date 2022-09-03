@@ -1,27 +1,7 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../config/connection");
 
-class Post extends Model {
-  static upvote(body, models) {
-    return models.Vote.create({
-      user_id: body.user_id,
-      post_id: body.post_id,
-    }).then(() => {
-      return Post.findOne({
-        where: {
-          id: body.post_id,
-        },
-        attributes: ["id", "post_body", "title", "created_at"],
-        include: [
-          {
-            model: models.User,
-            attributes: ["username"],
-          },
-        ],
-      });
-    });
-  }
-}
+class Post extends Model {}
 
 // create fields/columns for Post model
 Post.init(

@@ -47,4 +47,4 @@ const postData = [
 
 const seedPost = () => Post.bulkCreate(postData);
 
-export default seedPost;
+module.exports = seedPost;

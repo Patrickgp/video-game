@@ -1,5 +1,6 @@
 const router = require("express").Router();
-const { Post } = require("../../models");
+const { Post, User } = require("../../models");
+
 
 // Get all posts
 router.get("/", (req, res) => {
@@ -50,7 +51,7 @@ router.post("/", (req, res) => {
   Post.create({
     title: req.body.title,
     post_body: req.body.post_body,
-    user_id: req.body.user_id,
+    user_id: req.session.user_id
   })
     .then((dbPostData) => res.json(dbPostData))
     .catch((err) => {
@@ -72,6 +73,7 @@ router.put("/:id", (req, res) => {
   Post.update(
     {
       title: req.body.title,
+      post_body: req.body.post_body
     },
     {
       where: {
