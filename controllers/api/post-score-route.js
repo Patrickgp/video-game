@@ -3,7 +3,16 @@ const { Post, User } = require('../../models');
 
 // get all high scores 
 router.get('/', (req, res) => {
-  Post.findAll()
+  Post.findAll({
+    attributes: ['id', 'username', 'highscore', 'created_at'],
+    order: [['created_at', 'DESC']],
+    include: [
+      {
+        model: User,
+        attributes: ['username']
+      }
+    ]
+  })
     .then(dbPostData => res.json(dbPostData))
     .catch(err => {
       console.log(err);
