@@ -27,9 +27,14 @@ export class Sitting extends State {
     this.game.player.frameY = 0;
   }
   handleInput(input) {
-    if (input.includes("ArrowLeft") || input.includes("ArrowRight")) {
+    if (
+      input.includes("ArrowLeft") ||
+      input.includes("ArrowRight") ||
+      input.includes("swipe up") ||
+      input.includes("swipe right")
+    ) {
       this.game.player.setState(states.RUNNING, 1);
-    } else if (input.includes(" ")) {
+    } else if (input.includes(" ") || input.includes("swipe down")) {
       this.game.player.setState(states.ROLLING, 2);
     }
   }
@@ -53,11 +58,11 @@ export class Running extends State {
         this.game.player.y + this.game.player.height
       )
     );
-    if (input.includes("ArrowDown")) {
+    if (input.includes("ArrowDown") || input.includes("swipe left")) {
       this.game.player.setState(states.SITTING, 0);
-    } else if (input.includes("ArrowUp")) {
+    } else if (input.includes("ArrowUp") || input.includes("swipe up")) {
       this.game.player.setState(states.JUMPING, 1);
-    } else if (input.includes(" ")) {
+    } else if (input.includes(" ") || input.includes("swipe down")) {
       this.game.player.setState(states.ROLLING, 2);
     }
   }
@@ -76,7 +81,7 @@ export class Jumping extends State {
   handleInput(input) {
     if (this.game.player.vy > this.game.player.weight) {
       this.game.player.setState(states.FALLING, 1);
-    } else if (input.includes(" ")) {
+    } else if (input.includes(" ") || input.includes("swipe down")) {
       this.game.player.setState(states.ROLLING, 2);
     } else if (input.includes("ArrowDown")) {
       this.game.player.setState(states.DIVING, 0);
@@ -112,14 +117,19 @@ export class Rolling extends State {
     this.game.player.frameY = 2;
   }
   handleInput(input) {
-    if (!input.includes(" ") && this.game.player.onGround()) {
+    if (
+      !input.includes(" ") &&
+      !input.includes("swipe down") &&
+      this.game.player.onGround()
+    ) {
       this.game.player.setState(states.RUNNING, 1);
     } else if (!input.includes(" ") && !this.game.player.onGround()) {
       this.game.player.setState(states.FALLING, 1);
     } else if (
-      input.includes(" ") &&
-      input.includes("ArrowUp") &&
-      this.game.player.onGround()
+      (input.includes(" ") &&
+        input.includes("ArrowUp") &&
+        this.game.player.onGround()) ||
+      (input.includes("swipe up") && this.game.player.onGround())
     ) {
       this.game.player.vy -= 18;
     } else if (input.includes("ArrowDown")) {

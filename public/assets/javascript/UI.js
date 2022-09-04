@@ -1,8 +1,8 @@
 export class UI {
   constructor(game) {
     this.game = game;
-    this.fontSize = 30;
-    this.fontFamily = "Helvetica";
+    this.fontSize = 24;
+    this.fontFamily = "Nosifer";
     this.livesImage = document.getElementById("lives");
     this.restartButton = document.getElementById("restart");
   }
@@ -10,7 +10,7 @@ export class UI {
     context.save();
     context.shadowOffsetX = 0.5;
     context.shadowOffsetY = 0.5;
-    context.shadowColor = "Black";
+    context.shadowColor = "red";
     context.shadowBlur = 0;
     context.font = this.fontSize + "px " + this.fontFamily;
     context.textAlign = "left";
@@ -26,19 +26,19 @@ export class UI {
     }
     // game over messages
     if (this.game.gameover) {
-      context.context.textAlign = "center";
-      context.font = this.fontSize * 2 + "px " + this.fontFamily;
+      context.textAlign = "center";
+      context.font = this.fontSize * 1 + "px " + this.fontFamily;
       if (this.game.score > 50) {
         context.fillText(
-          "Good Game!",
+          "Good Game! Press 'Escape' or 'Swipe Up' to play again!",
           this.game.width * 0.5,
-          this.game.height * 0.5
+          this.game.height * 0.95
         );
       } else {
         context.fillText(
-          "Fail!! Try Again?",
+          "Fail!! Press 'Escape' or 'Swipe Up' to play again!",
           this.game.width * 0.5,
-          this.game.height * 0.5
+          this.game.height * 0.95
         );
       }
     }

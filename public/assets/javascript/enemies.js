@@ -71,7 +71,7 @@ export class GroundEnemy extends Enemy {
       this.game.height -
       this.height -
       this.game.groundMargin -
-      this.game.groundMargin / 3;
+      this.game.groundMargin / 2;
     this.image = document.getElementById("enemy_ground_zombie");
     this.speedX = 0;
     this.speedY = 0;
