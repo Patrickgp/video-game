@@ -23,8 +23,8 @@ export class Sitting extends State {
   }
   enter() {
     this.game.player.frameX = 0;
-    this.game.player.maxFrame = 4;
-    this.game.player.frameY = 5;
+    this.game.player.maxFrame = 0;
+    this.game.player.frameY = 0;
   }
   handleInput(input) {
     if (input.includes("ArrowLeft") || input.includes("ArrowRight")) {
@@ -38,11 +38,12 @@ export class Sitting extends State {
 export class Running extends State {
   constructor(game) {
     super("RUNNING", game);
+    this.fps = 5;
   }
   enter() {
-    this.game.player.frameX = 0;
-    this.game.player.maxFrame = 8;
-    this.game.player.frameY = 3;
+    this.game.player.frameX = 20;
+    this.game.player.maxFrame = 24;
+    this.game.player.frameY = 1;
   }
   handleInput(input) {
     this.game.particles.push(
@@ -69,8 +70,8 @@ export class Jumping extends State {
   enter() {
     if (this.game.player.onGround()) this.game.player.vy -= 18;
     this.game.player.frameX = 0;
-    this.game.player.maxFrame = 6;
-    this.game.player.frameY = 1;
+    this.game.player.maxFrame = 5;
+    this.game.player.frameY = 3;
   }
   handleInput(input) {
     if (this.game.player.vy > this.game.player.weight) {
@@ -89,8 +90,8 @@ export class Falling extends State {
   }
   enter() {
     this.game.player.frameX = 0;
-    this.game.player.maxFrame = 6;
-    this.game.player.frameY = 2;
+    this.game.player.maxFrame = 5;
+    this.game.player.frameY = 6;
   }
   handleInput(input) {
     if (this.game.player.onGround()) {
@@ -107,8 +108,8 @@ export class Rolling extends State {
   }
   enter() {
     this.game.player.frameX = 0;
-    this.game.player.maxFrame = 6;
-    this.game.player.frameY = 6;
+    this.game.player.maxFrame = 4;
+    this.game.player.frameY = 2;
   }
   handleInput(input) {
     if (!input.includes(" ") && this.game.player.onGround()) {
@@ -161,13 +162,13 @@ export class Hit extends State {
   }
   enter() {
     this.game.player.frameX = 0;
-    this.game.player.maxFrame = 10;
+    this.game.player.maxFrame = 4;
     this.game.player.frameY = 4;
   }
   handleInput(input) {
-    if (this.game.player.frameX >= 10 && this.game.player.onGround()) {
+    if (this.game.player.frameX >= 4 && this.game.player.onGround()) {
       this.game.player.setState(states.RUNNING, 1);
-    } else if (this.game.player.frameX >= 10 && !this.game.player.onGround()) {
+    } else if (this.game.player.frameX >= 4 && !this.game.player.onGround()) {
       this.game.player.setState(states.FALLING, 2);
     }
   }

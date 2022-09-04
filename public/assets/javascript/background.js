@@ -39,7 +39,7 @@ export class Background {
       this.game,
       this.width,
       this.height,
-      0,
+      0.01,
       this.layer1image
     );
     this.layer2 = new Layer(

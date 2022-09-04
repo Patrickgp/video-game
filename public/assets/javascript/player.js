@@ -14,8 +14,8 @@ import { CollisionAnimation } from "./collisionAnimation.js";
 export class Player {
   constructor(game) {
     this.game = game;
-    this.width = 100;
-    this.height = 91.5;
+    this.width = 85;
+    this.height = 100;
     this.x = 0;
     this.y = this.game.height - this.height - this.game.groundMargin;
     this.vy = 0;
@@ -25,7 +25,7 @@ export class Player {
     this.frameY = 0;
     this.maxFrame;
     this.fps = 20;
-    this.frameInterval = 1000 / this.fps;
+    this.frameInterval = 500 / this.fps;
     this.frameTimer = 0;
     this.speed = 0;
     this.maxSpeed = 5;
@@ -38,6 +38,12 @@ export class Player {
       new Diving(this.game),
       new Hit(this.game),
     ];
+  }
+  restart() {
+    this.x = 0;
+    this.y = this.game.height - this.height - this.game.groundMargin;
+    this.maxFrame;
+    this.frameY = 0;
   }
   update(input, deltaTime) {
     this.checkCollision();
@@ -119,6 +125,8 @@ export class Player {
           this.game.score++;
         } else {
           this.setState(6, 0);
+          this.game.lives--;
+          if (this.game.lives <= 0) this.game.gameover = true;
         }
       }
     });

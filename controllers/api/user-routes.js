@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User } = require('../../models');
+const { User, Comment, Post } = require('../../models');
 
 // get route used to get all users in the database
 router.get('/', async (req, res) => {
@@ -22,7 +22,21 @@ router.get('/', async (req, res) => {
     const sequelizeOptions = {
       where: {
         id,
-      }
+      },
+      include: [
+        {
+          model: Comment,
+          attributes: ['id', 'content', 'post_id', 'user_id', 'created_at'],
+          include: {
+            model: Post,
+            attributes: ['title']
+          }
+        },
+        {
+          model: Post,
+          attributes: ['post_body', 'user_id', 'title']
+        }
+      ]
     };
   
     try {

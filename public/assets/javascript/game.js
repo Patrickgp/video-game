@@ -7,14 +7,14 @@ import { UI } from "./UI.js";
 window.addEventListener("load", function () {
   const canvas = document.getElementById("canvas1");
   const ctx = canvas.getContext("2d");
-  canvas.width = 1500;
+  canvas.width = 1000;
   canvas.height = 500;
 
   class Game {
     constructor(width, height) {
       this.width = width;
       this.height = height;
-      this.groundMargin = 80;
+      this.groundMargin = 57.5;
       this.speed = 0;
       this.maxSpeed = 1.5;
       this.background = new Background(this);
@@ -28,10 +28,11 @@ window.addEventListener("load", function () {
       this.enemyInterval = 1000;
       this.debug = false;
       this.score = 0;
-      this.fontColor = "black";
+      this.fontColor = "red";
       this.time = 0;
       this.maxTime = 200000;
       this.gameover = false;
+      this.lives = 3;
       this.player.currentState = this.player.states[0];
       this.player.currentState.enter();
     }
@@ -97,7 +98,9 @@ window.addEventListener("load", function () {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     game.update(deltaTime);
     game.draw(ctx);
-    if (!game.gameover) requestAnimationFrame(animate);
+    if (!game.gameover) {
+      requestAnimationFrame(animate);
+    }
   }
 
   animate(0);
