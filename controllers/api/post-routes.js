@@ -1,5 +1,6 @@
 const router = require("express").Router();
-const { Post, User } = require("../../models");
+const withAuth = require('../../utils/auth')
+const { Post, User, Comment } = require("../../models");
 
 
 // Get all posts
@@ -12,6 +13,14 @@ router.get("/", (req, res) => {
         model: User,
         attributes: ["username"],
       },
+      {
+        model: Comment,
+        attributes: ['id', 'content', 'post_id', 'user_id', 'created_at'],
+        include: {
+          model: User,
+          attributes: ['username']
+        }
+      }
     ],
   })
     .then((dbPostData) => res.json(dbPostData))
@@ -47,7 +56,7 @@ router.get("/:id", (req, res) => {
     });
 });
 
-router.post("/", (req, res) => {
+router.post("/", withAuth, (req, res) => {
   Post.create({
     title: req.body.title,
     post_body: req.body.post_body,
@@ -60,7 +69,7 @@ router.post("/", (req, res) => {
     });
 });
 
-router.put("/upvote", (req, res) => {
+router.put("/upvote", withAuth, (req, res) => {
   Post.upvote(req.body, { Vote })
     .then((updatedPostData) => res.json(updatedPostData))
     .catch((err) => {
@@ -69,7 +78,7 @@ router.put("/upvote", (req, res) => {
     });
 });
 
-router.put("/:id", (req, res) => {
+router.put("/:id", withAuth, (req, res) => {
   Post.update(
     {
       title: req.body.title,
@@ -94,7 +103,7 @@ router.put("/:id", (req, res) => {
     });
 });
 
-router.delete("/:id", (req, res) => {
+router.delete("/:id", withAuth, (req, res) => {
   Post.destroy({
     where: {
       id: req.params.id,

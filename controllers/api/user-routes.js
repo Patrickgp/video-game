@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const withAuth = require('../../utils/auth');
 const { User, Comment, Post } = require('../../models');
 
 // get route used to get all users in the database
@@ -49,7 +50,7 @@ router.get('/', async (req, res) => {
   });
 
   // post route used to create a new user
-  router.post('/', async (req, res) => {
+  router.post('/', withAuth, async (req, res) => {
 
     try {
       const createUser = await User.create({
@@ -70,7 +71,7 @@ router.get('/', async (req, res) => {
 
 
 // put route used to update a users name, email, or password
-router.put('/:id', async (req, res) => {
+router.put('/:id', withAuth, async (req, res) => {
 
   try {
     const editUser = await User.update(
@@ -95,7 +96,7 @@ router.put('/:id', async (req, res) => {
 
 
 // delete route to delete a single user
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', withAuth, async (req, res) => {
 
   const { id } = req.params;
 

@@ -1,5 +1,6 @@
 const router = require('express').Router();
-const { Post, User, ScorePost } = require('../../models');
+const withAuth = require('../../utils/auth');
+const { Post, User, ScorePost, Comment} = require('../../models');
 
 // get all high scores 
 router.get('/', (req, res) => {
@@ -10,7 +11,15 @@ router.get('/', (req, res) => {
       {
         model: User,
         attributes: ['username']
-      }
+      },
+      {
+        model: Comment,
+        attributes: ['id', 'content', 'post_id', 'user_id', 'created_at'],
+        include: {
+          model: User,
+          attributes: ['username']
+        }
+      },
     ]
   })
     .then(dbPostData => res.json(dbPostData))
@@ -30,7 +39,16 @@ router.get('/:id', (req, res) => {
       {
         model: User,
         attributes: ['username']
-      }
+      },
+      {
+        model: Comment,
+        attributes: ['id', 'content', 'post_id', 'user_id', 'created_at'],
+        include: {
+          model: User,
+          attributes: ['username']
+        }
+      },
+      
     ]
   })
     .then(dbPostData => {
@@ -46,7 +64,7 @@ router.get('/:id', (req, res) => {
     });
 });
 
-router.post('/', (req, res) => {
+router.post('/', withAuth, (req, res) => {
   ScorePost.create({
     highscore: req.body.highscore,
     user_id: req.session.user_id
