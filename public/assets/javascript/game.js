@@ -9,6 +9,7 @@ window.addEventListener("load", function () {
   const ctx = canvas.getContext("2d");
   canvas.width = 1000;
   canvas.height = 500;
+  const fullScreenButton = document.getElementById("fullScreenButton");
 
   class Game {
     constructor(width, height) {
@@ -28,7 +29,7 @@ window.addEventListener("load", function () {
       this.enemyInterval = 1000;
       this.debug = false;
       this.score = 0;
-      this.fontColor = "red";
+      this.fontColor = "rgb(0,0,0)";
       this.time = 0;
       this.maxTime = 200000;
       this.gameover = false;
@@ -102,6 +103,18 @@ window.addEventListener("load", function () {
       requestAnimationFrame(animate);
     }
   }
+
+  function toggleFullscreen() {
+    if (!document.fullscreenElement) {
+      canvas.requestFullscreen().catch((err) => {
+        alert(`Error, can't enable full-screen mode: ${err.message}`);
+      });
+    } else if (document.exitFullscreen) {
+      document.exitFullscreen();
+    }
+  }
+
+  fullScreenButton.addEventListener("click", toggleFullscreen);
 
   animate(0);
 });
