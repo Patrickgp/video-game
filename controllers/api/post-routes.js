@@ -1,13 +1,23 @@
 const router = require("express").Router();
-const withAuth = require('../../utils/auth')
-const { Post, User, Comment } = require("../../models");
-
+const withAuth = require("../../utils/auth");
+const { Post, User, Comment, Vote } = require("../../models");
 
 // Get all posts
 router.get("/", (req, res) => {
   Post.findAll({
     order: [["created_at", "DESC"]],
-    attributes: ["id", "post_body", "title", "created_at"],
+    attributes: [
+      "id",
+      "post_body",
+      "title",
+      "created_at",
+      [
+        sequelize.literal(
+          "(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)"
+        ),
+        "vote_count",
+      ],
+    ],
     include: [
       {
         model: User,
@@ -15,12 +25,12 @@ router.get("/", (req, res) => {
       },
       {
         model: Comment,
-        attributes: ['id', 'content', 'post_id', 'user_id', 'created_at'],
+        attributes: ["id", "content", "post_id", "user_id", "created_at"],
         include: {
           model: User,
-          attributes: ['username']
-        }
-      }
+          attributes: ["username"],
+        },
+      },
     ],
   })
     .then((dbPostData) => res.json(dbPostData))
@@ -35,7 +45,18 @@ router.get("/:id", (req, res) => {
     where: {
       id: req.params.id,
     },
-    attributes: ["id", "post_body", "title", "created_at"],
+    attributes: [
+      "id",
+      "post_body",
+      "title",
+      "created_at",
+      [
+        sequelize.literal(
+          "(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)"
+        ),
+        "vote_count",
+      ],
+    ],
     include: [
       {
         model: User,
@@ -60,7 +81,7 @@ router.post("/", withAuth, (req, res) => {
   Post.create({
     title: req.body.title,
     post_body: req.body.post_body,
-    user_id: req.session.user_id
+    user_id: req.session.user_id,
   })
     .then((dbPostData) => res.json(dbPostData))
     .catch((err) => {
@@ -70,11 +91,14 @@ router.post("/", withAuth, (req, res) => {
 });
 
 router.put("/upvote", withAuth, (req, res) => {
-  Post.upvote(req.body, { Vote })
-    .then((updatedPostData) => res.json(updatedPostData))
+  Post.upvote(
+    { ...req.body, user_id: req.session.user_id },
+    { Vote, Comment, User }
+  )
+    .then((updatedVoteData) => res.json(updatedVoteData))
     .catch((err) => {
       console.log(err);
-      res.status(400).json(err);
+      res.status(500).json(err);
     });
 });
 
@@ -82,7 +106,7 @@ router.put("/:id", withAuth, (req, res) => {
   Post.update(
     {
       title: req.body.title,
-      post_body: req.body.post_body
+      post_body: req.body.post_body,
     },
     {
       where: {

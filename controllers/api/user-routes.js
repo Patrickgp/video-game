@@ -1,4 +1,5 @@
 const router = require("express").Router();
+
 const { User, Comment, Post } = require("../../models");
 
 // get route used to get all users in the database
