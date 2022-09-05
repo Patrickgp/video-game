@@ -89,6 +89,25 @@ window.addEventListener("load", function () {
       else if (this.speed > 0) this.enemies.push(new ClimbingEnemy(this));
       this.enemies.push(new FlyingEnemy(this));
     }
+    async postScore() {
+      const highscore = this.score;
+
+      const response = await fetch("/api/scores", {
+        method: "POST",
+        body: JSON.stringify({
+          highscore,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.ok) {
+        console.log("hello");
+      } else {
+        alert(response.statusText);
+      }
+    }
   }
 
   const game = new Game(canvas.width, canvas.height);
@@ -102,6 +121,8 @@ window.addEventListener("load", function () {
     game.draw(ctx);
     if (!game.gameover) {
       requestAnimationFrame(animate);
+    } else if (game.gameover) {
+      game.postScore();
     }
   }
 
