@@ -26,7 +26,7 @@ window.addEventListener("load", function () {
       this.particles = [];
       this.collisions = [];
       this.enemyTimer = 0;
-      this.enemyInterval = 1000;
+      this.enemyInterval = 500;
       this.debug = false;
       this.score = 0;
       this.fontColor = "rgb(0,0,0)";
@@ -39,7 +39,8 @@ window.addEventListener("load", function () {
     }
     update(deltaTime) {
       this.time += deltaTime;
-      if (this.time > this.maxTime) this.gameOver = true;
+      if (this.time > this.maxTime) this.gameover = true;
+      else if (this.lives <= 0) this.gameover = true;
       this.background.update();
       this.player.update(this.input.keys, deltaTime);
       // handleEnemies
