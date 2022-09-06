@@ -54,7 +54,7 @@ button:hover {
   width: 300px;
   border: #1e2f23 2px solid;
   border-radius: 5px;
-  box-shadow: 1px 1px 10px;
+  box-shadow: 1px 1px 10px #34623f;
 }
 
 textarea,
