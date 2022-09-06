@@ -5,7 +5,7 @@ const { User, ScorePost, Comment } = require("../../models");
 // get all high scores
 router.get("/", (req, res) => {
   ScorePost.findAll({
-    attributes: ["highscore", "created_at"],
+    attributes: ["id", "highscore", "created_at"],
     order: [["created_at", "DESC"]],
     include: [
       {
@@ -34,7 +34,7 @@ router.get("/:id", (req, res) => {
     where: {
       id: req.params.id,
     },
-    attributes: ["highscore", "created_at"],
+    attributes: ["id", "highscore", "created_at"],
     include: [
       {
         model: User,

@@ -57,8 +57,12 @@ router.get("/", async (req, res) => {
 // GET /dashboard/edit/:id
 router.get("/edit/:id", withAuth, (req, res) => {
   Post.findByPk(req.params.id, {
-    attributes: ["id", "title", "content", "created_at"],
+    attributes: ["id", "title", "post_body", "created_at"],
     include: [
+      {
+        model: User,
+        attributes: ["username"],
+      },
       {
         model: Comment,
         attributes: ["id", "content", "post_id", "user_id", "created_at"],
@@ -66,10 +70,6 @@ router.get("/edit/:id", withAuth, (req, res) => {
           model: User,
           attributes: ["username"],
         },
-      },
-      {
-        model: User,
-        attributes: ["username"],
       },
     ],
   })
