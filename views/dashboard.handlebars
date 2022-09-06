@@ -28,4 +28,17 @@
 </section>
 {{/if}}
 
+{{#if scoreposts.length}}
+<section> 
+  <h2>Your Scores</h2>
+    <ol>
+      {{#each scoreposts as |scorepost|}}
+      <li>
+        {{> scorepost-info scorepost}}
+      </li>
+      {{/each}}
+    </ol>
+</section>
+{{/if}}
+
 <script src="/javascript/add-post.js"></script>

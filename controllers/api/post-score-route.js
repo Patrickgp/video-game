@@ -1,76 +1,75 @@
-const router = require('express').Router();
-const withAuth = require('../../utils/auth');
-const { Post, User, ScorePost, Comment} = require('../../models');
+const router = require("express").Router();
+const withAuth = require("../../utils/auth");
+const { User, ScorePost, Comment } = require("../../models");
 
-// get all high scores 
-router.get('/', (req, res) => {
+// get all high scores
+router.get("/", (req, res) => {
   ScorePost.findAll({
-    attributes: ['highscore', 'created_at'],
-    order: [['created_at', 'DESC']],
+    attributes: ["highscore", "created_at"],
+    order: [["created_at", "DESC"]],
     include: [
       {
         model: User,
-        attributes: ['username']
+        attributes: ["username"],
       },
       {
         model: Comment,
-        attributes: ['id', 'content', 'post_id', 'user_id', 'created_at'],
+        attributes: ["id", "content", "post_id", "user_id", "created_at"],
         include: {
           model: User,
-          attributes: ['username']
-        }
+          attributes: ["username"],
+        },
       },
-    ]
+    ],
   })
-    .then(dbPostData => res.json(dbPostData))
-    .catch(err => {
+    .then((dbPostData) => res.json(dbPostData))
+    .catch((err) => {
       console.log(err);
       res.status(500).json(err);
     });
 });
 
-router.get('/:id', (req, res) => {
+router.get("/:id", (req, res) => {
   ScorePost.findOne({
     where: {
-      id: req.params.id
+      id: req.params.id,
     },
-    attributes: ['highscore', 'created_at'],
+    attributes: ["highscore", "created_at"],
     include: [
       {
         model: User,
-        attributes: ['username']
+        attributes: ["username"],
       },
       {
         model: Comment,
-        attributes: ['id', 'content', 'post_id', 'user_id', 'created_at'],
+        attributes: ["id", "content", "post_id", "user_id", "created_at"],
         include: {
           model: User,
-          attributes: ['username']
-        }
+          attributes: ["username"],
+        },
       },
-      
-    ]
+    ],
   })
-    .then(dbPostData => {
+    .then((dbPostData) => {
       if (!dbPostData) {
-        res.status(404).json({ message: 'No post found with this id' });
+        res.status(404).json({ message: "No post found with this id" });
         return;
       }
       res.json(dbPostData);
     })
-    .catch(err => {
+    .catch((err) => {
       console.log(err);
       res.status(500).json(err);
     });
 });
 
-router.post('/', withAuth, (req, res) => {
+router.post("/", withAuth, (req, res) => {
   ScorePost.create({
     highscore: req.body.highscore,
-    user_id: req.session.user_id
+    user_id: req.session.user_id,
   })
-    .then(dbPostData => res.json(dbPostData))
-    .catch(err => {
+    .then((dbPostData) => res.json(dbPostData))
+    .catch((err) => {
       console.log(err);
       res.status(500).json(err);
     });

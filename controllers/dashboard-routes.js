@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { Post, Comment, User } = require("../models");
+const { Post, Comment, User, ScorePost } = require("../models");
 const withAuth = require("../utils/auth");
 
 // GET /dashboard/
@@ -28,6 +28,33 @@ router.get("/", withAuth, (req, res) => {
       // serialize data before passing to template
       const posts = dbPostData.map((post) => post.get({ plain: true }));
       res.render("dashboard", { posts, loggedIn: true });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+});
+
+// GET /dashboard/ (for high score)
+router.get("/", withAuth, (req, res) => {
+  ScorePost.findAll({
+    where: {
+      user_id: req.session.user_id,
+    },
+    attributes: ["id", "highscore", "user_id", "created_at"],
+    include: [
+      {
+        model: User,
+        attributes: ["username"],
+      },
+    ],
+  })
+    .then((dbScorePostData) => {
+      // serialize data before passing to template
+      const scoreposts = dbScorePostData.map((scorepost) =>
+        scorepost.get({ plain: true })
+      );
+      res.render("dashboard", { scoreposts, loggedIn: true });
     })
     .catch((err) => {
       console.log(err);

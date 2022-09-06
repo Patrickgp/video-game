@@ -24,6 +24,11 @@ ScorePost.belongsTo(User, {
   onDelete: "CASCADE",
 });
 
+ScorePost.hasMany(Comment, {
+  foreignKey: "user_id",
+  onDelete: "CASCADE",
+});
+
 User.hasMany(Comment, {
   foreignKey: "user_id",
   onDelete: "CASCADE",
