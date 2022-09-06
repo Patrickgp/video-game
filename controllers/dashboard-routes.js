@@ -33,10 +33,7 @@ router.get("/", withAuth, (req, res) => {
       console.log(err);
       res.status(500).json(err);
     });
-});
 
-// GET /dashboard/ (for high score)
-router.get("/", withAuth, (req, res) => {
   ScorePost.findAll({
     where: {
       user_id: req.session.user_id,
