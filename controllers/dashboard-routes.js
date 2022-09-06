@@ -2,9 +2,9 @@ const router = require("express").Router();
 const { Post, Comment, User, ScorePost } = require("../models");
 const withAuth = require("../utils/auth");
 
-// GET /dashboard/
-router.get("/", withAuth, (req, res) => {
-  Post.findAll({
+// GET /dashboard (All Posts)
+router.get("/", async (req, res) => {
+  const sequelizeOptions = {
     where: {
       user_id: req.session.user_id,
     },
@@ -23,18 +23,9 @@ router.get("/", withAuth, (req, res) => {
         },
       },
     ],
-  })
-    .then((dbPostData) => {
-      // serialize data before passing to template
-      const posts = dbPostData.map((post) => post.get({ plain: true }));
-      res.render("dashboard", { posts, loggedIn: true });
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json(err);
-    });
-
-  ScorePost.findAll({
+  };
+  // GET /dashboard (for highscore)
+  const sequelizeOptions1 = {
     where: {
       user_id: req.session.user_id,
     },
@@ -45,18 +36,21 @@ router.get("/", withAuth, (req, res) => {
         attributes: ["username"],
       },
     ],
-  })
-    .then((dbScorePostData) => {
-      // serialize data before passing to template
-      const scoreposts = dbScorePostData.map((scorepost) =>
-        scorepost.get({ plain: true })
-      );
-      res.render("dashboard", { scoreposts, loggedIn: true });
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json(err);
-    });
+  };
+
+  try {
+    const allPosts = await Post.findAll(sequelizeOptions);
+    const posts = allPosts.map((post) => post.get({ plain: true }));
+    // High Scores
+    const allScoreposts = await ScorePost.findAll(sequelizeOptions1);
+    const scoreposts = allScoreposts.map((scorepost) =>
+      scorepost.get({ plain: true })
+    );
+    res.render("dashboard", { scoreposts, posts, loggedIn: true });
+  } catch (err) {
+    console.log("Error getting all Scoreposts or Posts", err);
+    res.status(400).send({ err });
+  }
 });
 
 // GET /dashboard/edit/:id
