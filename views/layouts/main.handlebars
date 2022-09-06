@@ -11,9 +11,10 @@
     <div class="wrapper">
       <header>
         <h1>
-          <a href="/">Video Game</a>
+          <a href="/">Team Nighthawk</a>
         </h1>
         <nav>
+          <a class="playNow" href="/game.html">Play Now</a>
           {{#if loggedIn}}
             <a href="/dashboard">User Dashboard</a>
             <button id="logout" class="btn-no-style">logout</button>
@@ -23,7 +24,6 @@
         </nav>
       </header>
       <main>
-        <a href="/game.html">Play Now</a>
         {{{body}}}
       </main>
       <footer>

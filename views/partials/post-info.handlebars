@@ -6,11 +6,11 @@
     Posted by
     {{user.username}}
     on
-    {{created_at}}
-    |
+    {{format_date created_at}}
+    <br />
     <a href="/post/{{id}}">
       {{comments.length}}
-      {{"comment"}}
+      {{format_plural "comment" comments.length}}
     </a>
   </div>
 </article>

@@ -39,16 +39,17 @@ router.get("/", async (req, res) => {
   };
 
   try {
+    // User posts
     const allPosts = await Post.findAll(sequelizeOptions);
     const posts = allPosts.map((post) => post.get({ plain: true }));
-    // High Scores
+    // High Score posts
     const allScoreposts = await ScorePost.findAll(sequelizeOptions1);
     const scoreposts = allScoreposts.map((scorepost) =>
       scorepost.get({ plain: true })
     );
     res.render("dashboard", { scoreposts, posts, loggedIn: true });
   } catch (err) {
-    console.log("Error getting all Scoreposts or Posts", err);
+    console.log(err);
     res.status(400).send({ err });
   }
 });

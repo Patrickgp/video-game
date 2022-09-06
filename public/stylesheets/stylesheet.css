@@ -41,6 +41,19 @@ button:hover {
 .post-list {
   margin: 0;
   padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.post-info {
+  text-align: center;
+  list-style-type: none;
+  padding: 50px;
+  margin: 5px;
+  width: 300px;
+  border: #1e2f23 2px solid;
+  border-radius: 5px;
 }
 
 textarea,
@@ -162,13 +175,20 @@ main {
 
 .post-content {
   text-align: center;
-  padding: 100px 0;
+  padding: 100px 10px;
   border: #1e2f23 2px solid;
   border-radius: 5px;
 }
 
 .edit-post-form {
   margin-bottom: 5%;
+}
+
+.playNow {
+  text-align: center;
+  border-right: #34623f 2px solid;
+  padding: 0 10px;
+  margin: 0 10px;
 }
 
 footer {
