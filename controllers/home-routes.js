@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { Post, Comment, User } = require("../models");
+const { Post, Comment, User, ScorePost } = require("../models");
 
 // GET all posts
 router.get("/", (req, res) => {
@@ -65,6 +65,46 @@ router.get("/post/:id", (req, res) => {
 
       // pass the data to the template
       res.render("single-post", { post, loggedIn: req.session.loggedIn });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+});
+
+// GET a single highscore post
+router.get("/score/:id", (req, res) => {
+  ScorePost.findOne({
+    where: {
+      id: req.params.id,
+    },
+    attributes: ["id", "highscore", "user_id", "created_at"],
+    include: [
+      {
+        model: User,
+        attributes: ["username"],
+      },
+      {
+        model: Comment,
+        attributes: ["id", "content", "post_id", "user_id", "created_at"],
+        include: {
+          model: User,
+          attributes: ["username"],
+        },
+      },
+    ],
+  })
+    .then((dbScorePostData) => {
+      if (!dbScorePostData) {
+        res.status(404).json({ message: "No highscore found with this id" });
+        return;
+      }
+
+      // serialize the data
+      const scorepost = dbScorePostData.get({ plain: true });
+
+      // pass the data to the template
+      res.render("single-score", { scorepost, loggedIn: req.session.loggedIn });
     })
     .catch((err) => {
       console.log(err);

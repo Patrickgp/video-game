@@ -1,10 +1,19 @@
 const router = require("express").Router();
-const { Comment } = require("../../models");
+const { Comment, User } = require("../../models");
 const withAuth = require("../../utils/auth");
 
 // GET /api/comments/
 router.get("/", (req, res) => {
-  Comment.findAll()
+  Comment.findAll({
+    order: [["created_at", "DESC"]],
+    attributes: ["id", "content", "post_id", "user_id", "created_at"],
+    include: [
+      {
+        model: User,
+        attributes: ["username"],
+      },
+    ],
+  })
     .then((dbCommentData) => res.json(dbCommentData))
     .catch((err) => {
       console.log(err);
