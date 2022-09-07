@@ -37,3 +37,19 @@ Email me: patrickgp1992@hotmail.com
 # Test
 N/A
 
+# Screenshots
+
+Utilizing the fullscreen api to make the swiping features mobile friendly in users browser
+<img width="1512" alt="Screen Shot 2022-09-07 at 8 20 07 AM" src="https://user-images.githubusercontent.com/86730331/188877023-703fcc11-9420-4f05-b390-fa7ba245a5ff.png">
+
+Screenshot of the game
+<img width="1512" alt="Screen Shot 2022-09-07 at 8 20 17 AM" src="https://user-images.githubusercontent.com/86730331/188877234-b4d603a3-b8aa-4280-ae90-cd58115e5267.png">
+
+Screenshot of Nighthawk forum homepage
+<img width="1512" alt="Screen Shot 2022-09-07 at 8 21 01 AM" src="https://user-images.githubusercontent.com/86730331/188877288-d34b7bad-297d-493e-9009-71e1e1ab84bb.png">
+
+Screenshot of Nighthawk forum user dashboard
+<img width="1512" alt="Screen Shot 2022-09-07 at 8 20 56 AM" src="https://user-images.githubusercontent.com/86730331/188877457-b1e42436-e730-45ba-b1ad-7c46c24113c6.png">
+
+Screenshot of user login/sign up
+<img width="1512" alt="Screen Shot 2022-09-07 at 8 21 08 AM" src="https://user-images.githubusercontent.com/86730331/188877515-4c228799-70ca-4ede-8d66-cd4b55a235c5.png">
