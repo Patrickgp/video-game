@@ -1,6 +1,6 @@
 const User = require("./User");
 const Post = require("./Post");
-const ScorePost = require("./Highscore");
+const ScorePost = require("./ScorePost");
 const Comment = require("./Comment");
 const Vote = require("./Vote");
 
