@@ -46,7 +46,8 @@ Screenshot of the game
 <img width="1512" alt="Screen Shot 2022-09-07 at 8 20 17 AM" src="https://user-images.githubusercontent.com/86730331/188877234-b4d603a3-b8aa-4280-ae90-cd58115e5267.png">
 
 Screenshot of Nighthawk forum homepage
-<img width="1512" alt="Screen Shot 2022-09-07 at 8 21 01 AM" src="https://user-images.githubusercontent.com/86730331/188877288-d34b7bad-297d-493e-9009-71e1e1ab84bb.png">
+<img width="1512" alt="Screen Shot 2022-09-07 at 10 07 53 PM" src="https://user-images.githubusercontent.com/86730331/189017781-43431c27-a5c0-48a3-a250-616ec13ce5fa.png">
+
 
 Screenshot of Nighthawk forum user dashboard
 <img width="1512" alt="Screen Shot 2022-09-07 at 8 20 56 AM" src="https://user-images.githubusercontent.com/86730331/188877457-b1e42436-e730-45ba-b1ad-7c46c24113c6.png">
