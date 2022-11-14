@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/Patrickgp/video-game#readme",
   "dependencies": {
-    "bcrypt": "^5.0.1",
+    "bcrypt": "^5.1.0",
     "connect-session-sequelize": "^7.1.4",
     "date.js": "^0.3.3",
     "dotenv": "^16.0.2",
