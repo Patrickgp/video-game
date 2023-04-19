@@ -32,7 +32,7 @@ This project is licensed under the None license.
 # Feedback & QA
 If you have any questions or feedback regarding the repo, open an issue.
 Github link: https://github.com/patrickgp.
-Email me: patrickgp1992@hotmail.com
+Email me: patrickgpoopathi@gmail.com
 
 # Test
 N/A
