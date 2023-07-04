@@ -13,7 +13,7 @@ if (process.env.JAWSDB_URL) {
     process.env.DB_USER,
     process.env.DB_PASSWORD,
     {
-      host: "localhost",
+      host: "aws.connect.psdb.cloud",
       dialect: "mysql",
       dialectModule: require("mysql2"),
       port: 3306,
